@@ -240,6 +240,10 @@
         const dataObject = {};
         formData.forEach((value, key) => { dataObject[key] = value.trim(); });
         
+        const storedData = JSON.parse(sessionStorage.getItem('sapClientData'));
+        dataObject.CardCode = storedData.CardCode;
+       
+        
         let isValid = true;
         validarCampos(); 
 

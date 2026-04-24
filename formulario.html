@@ -300,7 +300,7 @@
             
             // 4. Esperamos 4 segundos para que el cliente lea el mensaje y luego redirigimos
             setTimeout(() => {
-                window.location.href = "https://alorental.cl/";
+                window.top.location.href = "https://alorental.cl/";
             }, 4000);
             } else {
                 M.toast({html: result.message || '❌ Ocurrió un error al actualizar.', classes: 'red darken-1'});

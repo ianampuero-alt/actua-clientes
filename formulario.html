@@ -280,13 +280,28 @@
             hideLoader();
             
             if (response.ok && result.success) {
-                M.toast({html: '✅ ' + result.message, classes: 'green darken-1'});
-                // Opcional: Limpiar la sesión por seguridad
-                sessionStorage.clear();
-                // Redirigir al usuario o mostrar un mensaje final
-                setTimeout(() => {
-                    document.querySelector('.container').innerHTML = `<div class="card-panel center-align"><h4>¡Gracias!</h4><p>Sus datos han sido actualizados exitosamente en nuestros sistemas.</p></div>`;
-                }, 2000);
+            // 1. Mostramos el mensajito flotante por si acaso
+            M.toast({html: '✅ ' + result.message, classes: 'green darken-1'});
+            
+            // 2. Limpiamos la sesión por seguridad
+            sessionStorage.clear();
+            
+            // 3. Reemplazamos el formulario con el mensaje gigante de éxito y una barra de carga
+            document.querySelector('.container').innerHTML = `
+                <div class="card-panel center-align" style="margin-top: 50px; padding: 40px; border-radius: 10px;">
+                    <h4 class="green-text text-darken-2">¡Gracias!</h4>
+                    <p style="font-size: 1.2rem;">Sus datos han sido actualizados exitosamente en nuestros sistemas.</p>
+                    <p class="grey-text">Lo estamos redirigiendo a la página principal...</p>
+                    <div class="progress" style="width: 50%; margin: 20px auto;">
+                        <div class="indeterminate"></div>
+                    </div>
+                </div>
+            `;
+            
+            // 4. Esperamos 4 segundos para que el cliente lea el mensaje y luego redirigimos
+            setTimeout(() => {
+                window.location.href = "https://alorental.cl/";
+            }, 4000);
             } else {
                 M.toast({html: result.message || '❌ Ocurrió un error al actualizar.', classes: 'red darken-1'});
             }
